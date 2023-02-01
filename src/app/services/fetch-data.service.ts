@@ -15,7 +15,7 @@ export class FetchDataService {
 
   public fetchPokemons(): Observable<PokemonList> {
     return this.http.get<PokemonList>(
-      'https://pokeapi.co/api/v2/pokemon/?offset=20&limit=151'
+      'https://pokeapi.co/api/v2/pokemon/?off&limit=151'
     );
   }
   public fetchPokemon(url: string): Observable<PokemonFull> {

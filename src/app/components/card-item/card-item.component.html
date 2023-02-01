@@ -1,4 +1,26 @@
-<div class="w-full">
-  {{ pokemon.name }}
-  <img [src]="img" alt="test" />
+<div class="Custom">
+  <img
+    [hidden]="!pokemon.caught || loading"
+    src="../../../assets/pokeball.png"
+    class="w-10 absolute -translate-x-40 -translate-y-40 bg-white rounded-full border-black border-solid border"
+  />
+  <div
+    class="w-full max-w-xs h-80 flex flex-col items-center bg-white rounded-xl shadow-2xl"
+  >
+    <img [src]="img" alt="test" class="w-40" />
+    <article class="prose text-center font-classic">
+      <h2>
+        {{ pokemon.name }}
+      </h2>
+    </article>
+    <div class="w-full h-full flex justify-center items-center">
+      <img
+        src="../../../assets/pokeball.png"
+        (click)="catch(pokemon)"
+        class="w-10 hover:w-20 hover:-rotate-180 hover:pointer-events-auto transition-all duration-500"
+        [ngClass]="loading ? 'animate-spin w-20' : ''"
+        [hidden]="pokemon.caught && !loading"
+      />
+    </div>
+  </div>
 </div>

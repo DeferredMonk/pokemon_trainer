@@ -9,6 +9,7 @@ export interface PokemonFull {
   id: number;
   name: string;
   sprites: Sprite;
+  caught?: boolean;
 }
 interface Sprite {
   other: Other;
