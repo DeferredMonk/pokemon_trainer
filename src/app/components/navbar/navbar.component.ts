@@ -14,5 +14,8 @@ export class NavbarComponent {
   constructor(
     private readonly userService: UserService
     ) {}
-
+  
+  ngOnInit () {
+    
+  }
 }
