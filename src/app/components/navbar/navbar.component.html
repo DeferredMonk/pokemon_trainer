@@ -1,0 +1,17 @@
+<ng-container *ngIf="user !== undefined">
+  <nav
+    class="flex justify-between items-center sticky top-0 w-full bg-blue-900"
+  >
+    <span class="font-poke text-xl px-4 text-yellow-50"> Pokemon trainer</span>
+    <ul class="flex p-5">
+      <li class="px-6">
+        <a class="text-yellow-50 font-poke" routerLink="/trainer">Trainer</a>
+      </li>
+      <li>
+        <a class="text-yellow-50 font-poke" routerLink="/catalogue"
+          >Catalogue</a
+        >
+      </li>
+    </ul>
+  </nav>
+</ng-container>
