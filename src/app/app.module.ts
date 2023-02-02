@@ -9,13 +9,14 @@ import { CataloguePage } from './pages/catalogue/catalogue.page';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { FormsModule } from '@angular/forms';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
   declarations: [ //components
     AppComponent,
     LoginPage,
     TrainerPage, 
-    CataloguePage, LoginFormComponent
+    CataloguePage, LoginFormComponent, NavbarComponent
   ],
   imports: [ //modules
     BrowserModule,
