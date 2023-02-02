@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { PokemonFull } from '../models/pokemon.model';
 import { environment } from '../../environments/environment';
 import { User } from '../models/user.model';
@@ -20,6 +20,11 @@ export class CathEmAllService {
       }`
     );
   }
+
+  public fetchSessionStorage(): Observable<User> {
+    return of(JSON.parse(window.sessionStorage.getItem('trainer') || ''));
+  }
+
   public catchPokemon(
     currPokemons: PokemonFull[],
     pokemon: PokemonFull
