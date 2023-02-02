@@ -3,6 +3,12 @@
 @tailwind utilities;
 
 @font-face {
+<<<<<<< HEAD
+  font-family: "Pokemon-classic";
+  src: url("../src/assets/Pokemon Classic.ttf");
+}
+=======
     font-family: "pokemon";
     src: url('\assets\Pokemon _Solid.ttf');
 }
+>>>>>>> 84fb31db8455d9e6a51d300e813dcd5f64f3594e
