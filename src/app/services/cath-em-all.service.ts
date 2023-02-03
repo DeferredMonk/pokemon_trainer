@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { PokemonFull } from '../models/pokemon.model';
 import { environment } from '../../environments/environment';
 import { User } from '../models/user.model';
+import { StorageKeys } from '../utils/storage-keys.enum';
 
 const { apiKey, trainerUrl } = environment;
 
@@ -40,6 +41,23 @@ export class CathEmAllService {
         JSON.parse(window.sessionStorage.getItem('trainer') || '').id
       }`,
       toAdd,
+      {
+        headers,
+      }
+    );
+  }
+
+  public removePokemon (currPokemons: PokemonFull[]): Observable<User>{
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'x-api-key': apiKey,
+    });
+
+    return this.http.patch<User>(
+      `${trainerUrl}/${
+        JSON.parse(window.sessionStorage.getItem(StorageKeys.User) || '').id
+      }`,
+      currPokemons,
       {
         headers,
       }

@@ -1,0 +1,25 @@
+<div class="grid grid-cols-3 gap-4">
+  <div *ngFor="let poke of pokemon">
+    <div
+      class="w-full max-w-xs h-80 flex flex-col items-center bg-white rounded-xl shadow-2xl"
+    >
+      <img
+        [src]="poke.sprites.other['official-artwork'].front_default"
+        alt="test"
+        class="w-40"
+      />
+      <article class="prose text-center font-classic">
+        <h2>
+          {{ poke.name }}
+        </h2>
+      </article>
+      <div class="w-full h-full flex justify-center items-center">
+        <img
+          src="../../../assets/pokeball.png"
+          (click)="deletePokemon(poke)"
+          class="w-10 hover:w-20 hover:-rotate-180 hover:pointer-events-auto transition-all duration-500"
+        />
+      </div>
+    </div>
+  </div>
+</div>

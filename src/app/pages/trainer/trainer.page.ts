@@ -18,7 +18,7 @@ export class TrainerPage {
 
   get favorites(): string[] {
     if(this.userService.user){
-      return this.userService.user.pokemon
+      //return this.userService.user.pokemon
     }
     return []
   }
@@ -29,6 +29,7 @@ export class TrainerPage {
         console.log(this.user);
         StorageUtil.storageDelete(StorageKeys.User);
         this.router.navigateByUrl("");
+        this.userService.user = undefined;
       }
     }
   }

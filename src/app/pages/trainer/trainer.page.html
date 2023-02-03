@@ -1,7 +1,10 @@
-<header class="container mx-auto p-4 ">
-    <h1 class="text-4xl font-poke text-center">Welcome {{user?.username}}</h1>
+<div class="trainer min-h-screen" >
+<header class="container mx-auto p-4 flex justify-between">
+    <h1 class="text-4xl text-white font-poke text-center">Welcome {{user?.username}} !</h1>
+    <button class="font-poke text-white p-4" (click)="logOut()">Log out</button>
 </header>
 <main class="container mx-auto p-4">
-    <button (click)="logOut()">Log out</button>
-    <h4 class="text-xl font-poke text-center">Your pokemons:</h4>
+    <h4 class="text-xl font-poke text-white text-center p-4">Your pokemons:</h4>
+    <app-pokemon-item></app-pokemon-item>
 </main>
+</div>
