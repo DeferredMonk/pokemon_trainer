@@ -27,7 +27,7 @@ export class CardItemComponent {
     sprites: { other: { 'official-artwork': { front_default: '' } } },
   };
   public img: string = '';
-  public caughtPokemons: PokemonFull[] = [];
+  public caughtPokemons: PokemonFull[] = []
   public loading: boolean = false;
   private trainer: User = JSON.parse(
     window.sessionStorage.getItem('trainer') || ''
@@ -37,9 +37,8 @@ export class CardItemComponent {
     this.loading = true;
     this.pokemon.caught = true;
     this.catchEmAllService
-      .catchPokemon(this.caughtPokemons, pokemon)
+      .catchPokemon(pokemon)
       .subscribe((result) => {
-        this.caughtPokemons = result.pokemon;
         this.loading = false;
         this.trainer.pokemon = this.caughtPokemons;
         window.sessionStorage.setItem(
@@ -50,9 +49,7 @@ export class CardItemComponent {
   }
 
   ngOnInit() {
-    this.catchEmAllService.fetchCaughtPokemons().subscribe((data) => {
-      this.caughtPokemons = data[0].pokemon;
-    });
+    this.catchEmAllService.caughtPokemon.subscribe((data: PokemonFull[]) => this.caughtPokemons = data);
     this.route.paramMap.subscribe((params: ParamMap) => {
       let filter: PokemonFull[] = this.trainer.pokemon.filter(
         (pokemon) => pokemon.name === params.get('pokemonName')
