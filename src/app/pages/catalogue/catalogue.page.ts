@@ -23,35 +23,21 @@ export class CataloguePage implements OnInit {
   ) {}
 
   public allPokem: Pokemon[] = [];
-  public caughtPokemons: PokemonFull[] = [];
-  private caught: boolean = false;
-  private sessionStorageData: User = { id: 0, username: '', pokemon: [] };
+  private caughtPokemons: PokemonFull[] = [];
 
   isCaught(pokemon: Pokemon): boolean {
-    this.caught =
-      this.sessionStorageData.pokemon.filter(
-        (item) => item.name === pokemon.name
-      ).length > 0;
-
-    return this.caught;
+    return this.caughtPokemons.some(
+      (caughtPokemon) => caughtPokemon.name === pokemon.name
+    );
   }
 
   ngOnInit() {
-    this.catchEmAllService.fetchSessionStorage().subscribe((data) => {
-      console.log(data);
-      this.sessionStorageData = data;
+    this.catchEmAllService.caughtPokemon.subscribe(
+      (pokemons) => (this.caughtPokemons = pokemons)
+    );
+    this.catchEmAllService.fetchCaughtPokemons();
+    this.fetchDataService.fetchPokemons().subscribe((data) => {
+      this.allPokem = data;
     });
-
-    window.sessionStorage.getItem('allPokemons') === null
-      ? this.fetchDataService.fetchPokemons().subscribe((data: PokemonList) => {
-          window.sessionStorage.setItem(
-            'allPokemons',
-            JSON.stringify(data.results)
-          );
-          this.allPokem = data.results;
-        })
-      : (this.allPokem = JSON.parse(
-          window.sessionStorage.getItem('allPokemons') || ''
-        ));
   }
 }

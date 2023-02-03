@@ -25,11 +25,4 @@ export class UserService {
     const storedUser: User | undefined = StorageUtil.storageRead<User>(StorageKeys.User);
     this._user = storedUser;
   }
-
-  public removePokemon (pokemon: PokemonFull): void {
-    if(this._user){
-      this._user.pokemon = this._user.pokemon.filter((poke: PokemonFull) => poke !== pokemon);
-      StorageUtil.storageSave<User>(StorageKeys.User, this._user);
-    }
-  }
 }

@@ -17,7 +17,7 @@
       <img
         src="../../../assets/pokeball.png"
         (click)="catch(pokemon)"
-        class="w-10 hover:w-20 hover:-rotate-180 hover:pointer-events-auto transition-all duration-500"
+        class="w-10 hover:w-20 hover:-rotate-180 cursor-pointer hover:pointer-events-auto transition-all duration-500"
         [ngClass]="loading ? 'animate-spin w-20' : ''"
         [hidden]="pokemon.caught && !loading"
       />
