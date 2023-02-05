@@ -30,7 +30,8 @@ export class FetchDataService {
       return of(JSON.parse(window.sessionStorage.getItem('allPokemons') || ''));
     }
   }
-  public fetchPokemon(url: string): Observable<PokemonFull> {
+  public fetchPokemon(ending: string | null): Observable<PokemonFull> {
+    const url = 'https://pokeapi.co/api/v2/pokemon/' + ending;
     return this.http.get<PokemonFull>(url);
   }
 }

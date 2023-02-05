@@ -4,7 +4,6 @@ import {
   Pokemon,
   PokemonFull,
 } from 'src/app/models/pokemon.model';
-import { User } from 'src/app/models/user.model';
 import { CathEmAllService } from 'src/app/services/cath-em-all.service';
 import { FetchDataService } from 'src/app/services/fetch-data.service';
 

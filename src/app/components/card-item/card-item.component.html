@@ -1,6 +1,6 @@
 <div class="Custom">
   <img
-    [hidden]="!pokemon.caught || loading"
+    [hidden]="!isCaught(pokemon.name) || loading"
     src="../../../assets/pokeball.png"
     class="w-10 absolute -translate-x-40 -translate-y-40 bg-white rounded-full border-black border-solid border"
   />
