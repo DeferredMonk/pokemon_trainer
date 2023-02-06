@@ -3,7 +3,7 @@
 ## Table of Contents
 1. [Introduction](#intro)
 2. [Feature](#feats)
-3. [Folders] (#folder)
+3. [Folders](#folder)
 4. [Technologies](#tech)
 5. [Usage](#use)
 6. [Authors](#aut)
@@ -113,7 +113,7 @@ Pokemon trainer is a web application created with Angular Framework. This applic
             pokeball.png
             Pokemon Classic.ttf
             Pokemon _Solid.ttf
-    ```
+```
 
 <a name="tech"></a>
 ## 4. Technologies 
