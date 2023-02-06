@@ -25,13 +25,20 @@ export class CataloguePage implements OnInit {
 
   public allPokem: Pokemon[] = [];
   private caughtPokemons: PokemonFull[] = [];
-
+  /**
+   * checks if pokemon of list is caught
+   * @param {string | null} pokemon name of pokemon
+   * @returns {boolean}
+   */
   isCaught(pokemon: Pokemon): boolean {
     return this.caughtPokemons.some(
       (caughtPokemon) => caughtPokemon.name === pokemon.name
     );
   }
 
+  /**
+   * When component renders
+   */
   ngOnInit() {
     this.catchEmAllService.caughtPokemon.subscribe(
       (pokemons) => (this.caughtPokemons = pokemons)

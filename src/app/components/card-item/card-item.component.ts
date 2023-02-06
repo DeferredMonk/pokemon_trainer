@@ -15,6 +15,7 @@ export class CardItemComponent {
     private readonly fetchDataService: FetchDataService,
     private readonly catchEmAllService: CathEmAllService
   ) {}
+
   public pokemon: PokemonFull = {
     id: 0,
     name: '',
@@ -25,18 +26,31 @@ export class CardItemComponent {
   public loading: boolean = false;
   public caught: boolean = false;
 
+  /**
+   * catch iniziates the catching prosess
+   * when pokemon is caught it finishes loading
+   * @param {PokemonFull}
+   */
   catch(pokemon: PokemonFull) {
     this.loading = true;
     this.catchEmAllService.catchPokemon(pokemon).subscribe(() => {
       this.loading = false;
     });
   }
-  isCaught(pokemon: string | null) {
+  /**
+   * checks if pokemon of list is caught
+   * @param {string | null} pokemon name of pokemon
+   * @returns {boolean}
+   */
+  isCaught(pokemon: string | null): boolean {
     return this.caughtPokemons.some(
       (item: PokemonFull) => item.name === pokemon
     );
   }
 
+  /**
+   * When component renders
+   */
   ngOnInit() {
     this.catchEmAllService.caughtPokemon.subscribe(
       (data: PokemonFull[]) => (this.caughtPokemons = data)
