@@ -20,7 +20,7 @@ export class LoginFormComponent {
   /**
    * Runs after username has been submitted.
    * Logs in the user.
-   * @param loginForm
+   * @param {NgForm}
    */
   public loginSubmit(loginForm: NgForm): void {
     const { username } = loginForm.value;

@@ -134,4 +134,4 @@ The application is deployed [here](https://pokemontr41ner.netlify.app)
 
 <a name="sou"></a>
 ## 7. Sources
-Project eas an assignment done during education program created by Noroff Education
+Project was an assignment done during education program created by Noroff Education

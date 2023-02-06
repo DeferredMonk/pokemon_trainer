@@ -23,6 +23,9 @@ export class PokemonItemComponent implements OnInit {
 
   constructor(private readonly catchEmAllService: CathEmAllService) {}
 
+  /**
+   * When component renders
+   */
   ngOnInit() {
     this.catchEmAllService.fetchCaughtPokemons();
 

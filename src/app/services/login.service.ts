@@ -3,17 +3,19 @@ import { Injectable } from '@angular/core';
 import { map, Observable, of, switchMap } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { User } from '../models/user.model';
-
 const { apiKey, trainerUrl } = environment;
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
-  //dependency injection
   constructor(private readonly http: HttpClient) {}
 
-  //login
+  /**
+   * Checks if the user exists and calls the createUser if not.
+   * @param {string} username
+   * @returns {User}
+   */
   public login(username: string): Observable<User> {
     return this.checkUsername(username).pipe(
       switchMap((user: User | undefined) => {
@@ -25,14 +27,22 @@ export class LoginService {
     );
   }
 
-  //Check if user exist
+  /**
+   * Checks if the user exists in API.
+   * @param {string} username
+   * @returns {User}
+   */
   private checkUsername(username: string): Observable<User | undefined> {
     return this.http
       .get<User[]>(`${trainerUrl}?username=${username}`)
       .pipe(map((response: User[]) => response.pop()));
   }
 
-  //if not user -- create
+  /**
+   * Creates a new user in the API.
+   * @param {string} username
+   * @returns {User}
+   */
   private createUser(username: string): Observable<User> {
     const user = {
       username,

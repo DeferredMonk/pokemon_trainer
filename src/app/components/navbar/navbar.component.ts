@@ -15,6 +15,9 @@ export class NavbarComponent {
 
   constructor(private readonly userService: UserService) {}
 
+  /**
+   * When component renders
+   */
   ngOnInit() {
     this.userService.logged.subscribe((data) => (this.logged = Boolean(data)));
   }
