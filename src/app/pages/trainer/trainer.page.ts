@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user.model';
 import { StorageUtil } from 'src/app/utils/storage.util';
@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   templateUrl: './trainer.page.html',
   styleUrls: ['./trainer.page.css']
 })
-export class TrainerPage {
+export class TrainerPage implements OnInit {
 
   get user(): User | undefined {
     return this.userService.user;
@@ -28,4 +28,7 @@ export class TrainerPage {
     private userService: UserService
   ){}
 
+  ngOnInit(): void {
+    this.userService.fetchLogStatus();
+  }
 }
