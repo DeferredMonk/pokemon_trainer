@@ -1,27 +1,46 @@
-# PokemonTrainer
+# Pokemon Trainer
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.1.3.
+## Table of Contents
+1. [Introduction](#intro)
+2. [Feature](#feats)
+3. [Folder Structure] (#folder)
+4. [Technologies](#tech)
+5. [Usage](#use)
+6. [Authors](#aut)
+7. [Sources](#sou)
 
-## Development server
+<a name="intro"></a>
+## 1. Introduction 
+Pokemon trainer is a web application created with Angular Framework. This application allows you to sign in with your name. Then you can browse all of the pokemons and add them to your collection. From the collection you can also delete a pokemon. 
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-## Code scaffolding
+<a name="feats"></a>
+## 2. Features
+* Add pokemon to your collection
+* Authentication
+* Store users collection and delete when needed
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+<a name="folder"></a>
+## 3. Folder structure
 
-## Build
+<a name="tech"></a>
+## 4. Technologies 
+* Angular
+* Typescript
+* HTML/CSS
+* Glitch
+* Netlify
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+<a name="use"></a>
+## 5. Usage
 
-## Running unit tests
+The application is deployed [here]()
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+<a name="aut"></a>
+## 6. Authors
+[@Adalmiina](https://github.com/Adalmiinas)
+[@Marco](https://github.com/DeferredMonk)
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+<a name="sou"></a>
+## 7. Sources
+Project eas an assignment done during education program created by Noroff Education

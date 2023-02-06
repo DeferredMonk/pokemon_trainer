@@ -19,10 +19,6 @@ export class LoginFormComponent {
     private readonly loginService: LoginService
     ) {}
 
-  public getUrl(){
-    return "..\assets\login-bg.png";
-  }
-
   public loginSubmit(loginForm: NgForm): void {
 
     const {username} = loginForm.value;

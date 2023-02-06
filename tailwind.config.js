@@ -6,10 +6,9 @@ module.exports = {
       fontFamily: {
         classic: ["Pokemon-classic"],
       },
-
-      fontFamily: {
-        poke: ["pokemon"],
-      },
+      fontFamily:{
+        poke: ["pokemon"]
+      }
     },
   },
   plugins: [require("@tailwindcss/typography")],
