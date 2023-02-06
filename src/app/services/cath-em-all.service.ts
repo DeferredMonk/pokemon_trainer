@@ -10,6 +10,7 @@ import { environment } from '../../environments/environment';
 import { User } from '../models/user.model';
 import { StorageKeys } from '../utils/storage-keys.enum';
 import { StorageUtil } from '../utils/storage.util';
+import { observableToBeFn } from 'rxjs/internal/testing/TestScheduler';
 
 const { apiKey, trainerUrl } = environment;
 
@@ -19,8 +20,14 @@ const { apiKey, trainerUrl } = environment;
 export class CathEmAllService {
   constructor(private readonly http: HttpClient) {}
 
+  //Holds captured pokemons
   public caughtPokemon = new BehaviorSubject<PokemonFull[]>([]);
 
+  /**
+   * fetchCaughtPokemons fetches
+   * logged users caught pokemons
+   * and sets caughtPokemon accordingly
+   */
   public fetchCaughtPokemons(): void {
     this.http
       .get<User[]>(
@@ -39,10 +46,21 @@ export class CathEmAllService {
       });
   }
 
+  /**
+   * returns sessionstorage as observable
+   * @returns {observable}
+   */
   public fetchSessionStorage(): Observable<User> {
     return of(JSON.parse(window.sessionStorage.getItem('trainer') || ''));
   }
 
+  /**
+   * catchPokemon takes care of
+   * the prosess of catching pokemons
+   * it patches the api and sessionStorage
+   * @param {PokemonFull}pokemon
+   * @returns {Observable}
+   */
   public catchPokemon(pokemon: PokemonFull): Observable<User> {
     this.caughtPokemon.next([...this.caughtPokemon.value, pokemon]);
 
@@ -68,9 +86,20 @@ export class CathEmAllService {
       }
     );
   }
-  public updatePokemon (pokemon: PokemonFull): Observable<User>{
-    this.caughtPokemon.next([...this.caughtPokemon.value.filter((poke: PokemonFull) => poke.name !== pokemon.name)]);
-    console.log(this.caughtPokemon.value)
+  /**
+   * updatePokemon frees a pokemon from
+   * the trainers collection removes
+   * the pokemon from the api and caught
+   * pokemon list
+   * @param {PokemonFull}pokemon
+   * @returns {User}
+   */
+  public updatePokemon(pokemon: PokemonFull): Observable<User> {
+    this.caughtPokemon.next([
+      ...this.caughtPokemon.value.filter(
+        (poke: PokemonFull) => poke.name !== pokemon.name
+      ),
+    ]);
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
