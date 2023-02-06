@@ -1,7 +1,11 @@
 <div class="h-screen login">
   <h1 class="font-poke text-8xl text-center">POKEMON TRAINER</h1>
-  <div class="absolute bottom-20 w-screen justify-center mt-4 ">
-    <form class="flex flex-row justify-center" #loginForm="ngForm" (ngSubmit)="loginSubmit(loginForm)">
+  <div class="absolute bottom-20 w-screen justify-center mt-4">
+    <form
+      class="flex flex-row justify-center"
+      #loginForm="ngForm"
+      (ngSubmit)="loginSubmit(loginForm)"
+    >
       <fieldset class="mb-3">
         <input
           ngModel
@@ -11,24 +15,25 @@
           type="text"
           name="username"
           id="username"
-          class=" input block w-full p-4 pl-10 text-m text-gray-900 border border-gray-300 rounded-lg"
+          class="input block w-full p-4 pl-10 text-m text-gray-900 border border-gray-300 rounded-lg"
           placeholder="Enter username..."
         />
       </fieldset>
-
 
       <button
         type="submit"
         cursor-not-allowed
         [disabled]="!loginForm.valid"
-        class="bg-[#97171b] hover:bg-[#dd401f] font-poke rounded-xl text-white  font-medium text-sm button"
+        class="bg-[#97171b] hover:bg-[#dd401f] font-poke rounded-xl text-white font-medium text-sm button"
       >
         Login
       </button>
-  
     </form>
   </div>
-  <div class="flex absolute bottom-12 w-screen justify-center" *ngIf="username.errors?.['minlength']">
+  <div
+    class="flex absolute bottom-12 w-screen justify-center"
+    *ngIf="username.errors?.['minlength']"
+  >
     Username must be at least 4 characters!
   </div>
 </div>
