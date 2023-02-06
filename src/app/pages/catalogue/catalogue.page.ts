@@ -4,9 +4,9 @@ import {
   Pokemon,
   PokemonFull,
 } from 'src/app/models/pokemon.model';
-import { User } from 'src/app/models/user.model';
 import { CathEmAllService } from 'src/app/services/cath-em-all.service';
 import { FetchDataService } from 'src/app/services/fetch-data.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-catalogue',
@@ -19,7 +19,8 @@ export class CataloguePage implements OnInit {
   };
   constructor(
     private readonly fetchDataService: FetchDataService,
-    private readonly catchEmAllService: CathEmAllService
+    private readonly catchEmAllService: CathEmAllService,
+    private readonly userService: UserService
   ) {}
 
   public allPokem: Pokemon[] = [];
@@ -39,5 +40,6 @@ export class CataloguePage implements OnInit {
     this.fetchDataService.fetchPokemons().subscribe((data) => {
       this.allPokem = data;
     });
+    this.userService.fetchLogStatus();
   }
 }

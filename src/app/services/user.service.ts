@@ -11,14 +11,24 @@ import { PokemonFull } from '../models/pokemon.model';
 export class UserService {
   private _user?: User;
 
+  public logged = new BehaviorSubject<any>(null);
+
+  public fetchLogStatus(): void {
+    this.logged.next(JSON.parse(window.sessionStorage.getItem('trainer') || ''));
+  }
+
+  public logOut(): void {
+    this.logged.next(null);
+  }
+
   get user(): User | undefined {
     return this._user;
-                  
   } 
 
   set user(user:User | undefined) {
     StorageUtil.storageSave<User>(StorageKeys.User, user!);
     this._user = user;
+    this.fetchLogStatus();
   }
 
   constructor() { 

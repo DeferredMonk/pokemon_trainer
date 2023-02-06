@@ -15,22 +15,12 @@ export class TrainerPage {
   get user(): User | undefined {
     return this.userService.user;
   }
-
-  get favorites(): string[] {
-    if(this.userService.user){
-      //return this.userService.user.pokemon
-    }
-    return []
-  }
   
   public logOut () {
-    if(this.userService.user){
-      if(confirm("Are you sure you want to log out?")){
-        console.log(this.user);
+    if(this.userService.user && confirm("Are you sure you want to log out?")){
         StorageUtil.storageDelete(StorageKeys.User);
         this.router.navigateByUrl("");
-        this.userService.user = undefined;
-      }
+        this.userService.logOut();
     }
   }
   constructor (

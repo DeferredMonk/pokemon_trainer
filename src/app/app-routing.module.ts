@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CardItemComponent } from './components/card-item/card-item.component';
 import { AuthGuard } from './guards/auth.guard';
+import { LoggedGuard } from './guards/logged.guard';
 import { CataloguePage } from './pages/catalogue/catalogue.page';
 import { LoginPage } from './pages/login/login.page';
 import { TrainerPage } from './pages/trainer/trainer.page';
@@ -15,6 +16,7 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginPage,
+    canActivate: [LoggedGuard],
   },
   {
     path: 'trainer',

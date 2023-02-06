@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
-import { User } from 'src/app/models/user.model';
-import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -10,15 +8,13 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class NavbarComponent {
 
-  get user(): User | undefined {
-    return this.userService.user;
-  }
+  public logged: boolean = false;
 
   constructor(
-    private readonly userService: UserService
+    private readonly userService: UserService,
     ) {}
   
   ngOnInit () {
-    
+    this.userService.logged.subscribe((data) => this.logged = Boolean(data));
   }
 }
