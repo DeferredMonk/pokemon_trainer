@@ -1,9 +1,14 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, map, Observable, of } from 'rxjs';
 import { PokemonFull } from '../models/pokemon.model';
 import { environment } from '../../environments/environment';
 import { User } from '../models/user.model';
+import { StorageUtil } from '../utils/storage.util';
 
 const { apiKey, trainerUrl } = environment;
 
@@ -13,23 +18,40 @@ const { apiKey, trainerUrl } = environment;
 export class CathEmAllService {
   constructor(private readonly http: HttpClient) {}
 
-  public fetchCaughtPokemons(): Observable<User[]> {
-    return this.http.get<User[]>(
-      `${trainerUrl}?id=${
-        JSON.parse(window.sessionStorage.getItem('trainer') || '').id
-      }`
-    );
+  public caughtPokemon = new BehaviorSubject<PokemonFull[]>([]);
+
+  public fetchCaughtPokemons(): void {
+    this.http
+      .get<User[]>(
+        `${trainerUrl}?id=${
+          JSON.parse(window.sessionStorage.getItem('trainer') || '').id
+        }`
+      )
+      .pipe(map((user: User[]) => user[0].pokemon))
+      .subscribe({
+        next: (pokemonList: PokemonFull[]) => {
+          this.caughtPokemon.next(pokemonList);
+        },
+        error: (error: HttpErrorResponse) => {
+          console.log(error.message);
+        },
+      });
   }
 
   public fetchSessionStorage(): Observable<User> {
     return of(JSON.parse(window.sessionStorage.getItem('trainer') || ''));
   }
 
-  public catchPokemon(
-    currPokemons: PokemonFull[],
-    pokemon: PokemonFull
-  ): Observable<User> {
-    const toAdd = { pokemon: [...currPokemons, pokemon] };
+  public catchPokemon(pokemon: PokemonFull): Observable<User> {
+    this.caughtPokemon.next([...this.caughtPokemon.value, pokemon]);
+
+    const toAdd: User = JSON.parse(
+      window.sessionStorage.getItem('trainer') || ''
+    );
+    toAdd.pokemon = this.caughtPokemon.value;
+
+    StorageUtil.storageSave('trainer', toAdd);
+
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'x-api-key': apiKey,

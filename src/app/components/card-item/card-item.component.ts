@@ -1,14 +1,8 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Pokemon, PokemonFull } from 'src/app/models/pokemon.model';
-import {
-  Router,
-  ActivatedRoute,
-  ParamMap,
-  withDebugTracing,
-} from '@angular/router';
+import { Component } from '@angular/core';
+import { PokemonFull } from 'src/app/models/pokemon.model';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { FetchDataService } from 'src/app/services/fetch-data.service';
 import { CathEmAllService } from 'src/app/services/cath-em-all.service';
-import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-card-item',
@@ -29,49 +23,33 @@ export class CardItemComponent {
   public img: string = '';
   public caughtPokemons: PokemonFull[] = [];
   public loading: boolean = false;
-  private trainer: User = JSON.parse(
-    window.sessionStorage.getItem('trainer') || ''
-  );
+  public caught: boolean = false;
 
   catch(pokemon: PokemonFull) {
     this.loading = true;
-    this.pokemon.caught = true;
-    this.catchEmAllService
-      .catchPokemon(this.caughtPokemons, pokemon)
-      .subscribe((result) => {
-        this.caughtPokemons = result.pokemon;
-        this.loading = false;
-        this.trainer.pokemon = this.caughtPokemons;
-        window.sessionStorage.setItem(
-          'trainer',
-          JSON.stringify({ ...this.trainer })
-        );
-      });
+    this.catchEmAllService.catchPokemon(pokemon).subscribe(() => {
+      this.loading = false;
+    });
+  }
+  isCaught(pokemon: string | null) {
+    return this.caughtPokemons.some(
+      (item: PokemonFull) => item.name === pokemon
+    );
   }
 
   ngOnInit() {
-    this.catchEmAllService.fetchCaughtPokemons().subscribe((data) => {
-      this.caughtPokemons = data[0].pokemon;
-    });
+    this.catchEmAllService.caughtPokemon.subscribe(
+      (data: PokemonFull[]) => (this.caughtPokemons = data)
+    );
     this.route.paramMap.subscribe((params: ParamMap) => {
-      let filter: PokemonFull[] = this.trainer.pokemon.filter(
-        (pokemon) => pokemon.name === params.get('pokemonName')
-      );
-      filter.length > 0
-        ? ([this.pokemon, this.img] = [
-            filter[0],
-            filter[0].sprites.other['official-artwork'].front_default,
-          ])
-        : this.fetchDataService
-            .fetchPokemon(
-              'https://pokeapi.co/api/v2/pokemon/' + params.get('pokemonName')
-            )
-            .subscribe((data: PokemonFull) => {
-              return ([this.pokemon, this.img] = [
-                data,
-                data.sprites.other['official-artwork'].front_default,
-              ]);
-            });
+      this.fetchDataService
+        .fetchPokemon(params.get('pokemonName'))
+        .subscribe((data: PokemonFull) => {
+          return ([this.pokemon, this.img] = [
+            data,
+            data.sprites.other['official-artwork'].front_default,
+          ]);
+        });
     });
   }
 }
