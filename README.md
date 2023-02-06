@@ -22,6 +22,7 @@ Pokemon trainer is a web application created with Angular Framework. This applic
 
 <a name="folder"></a>
 ## 3. Folders
+``` bash
 └───src
     │   favicon.ico
     │   index.html
@@ -112,7 +113,7 @@ Pokemon trainer is a web application created with Angular Framework. This applic
             pokeball.png
             Pokemon Classic.ttf
             Pokemon _Solid.ttf
-    
+    ```
 
 <a name="tech"></a>
 ## 4. Technologies 
