@@ -9,6 +9,7 @@ import { PokemonFull } from '../models/pokemon.model';
 import { environment } from '../../environments/environment';
 import { User } from '../models/user.model';
 import { StorageKeys } from '../utils/storage-keys.enum';
+import { StorageUtil } from '../utils/storage.util';
 
 const { apiKey, trainerUrl } = environment;
 
@@ -44,7 +45,14 @@ export class CathEmAllService {
 
   public catchPokemon(pokemon: PokemonFull): Observable<User> {
     this.caughtPokemon.next([...this.caughtPokemon.value, pokemon]);
-  
+
+    const toAdd: User = JSON.parse(
+      window.sessionStorage.getItem('trainer') || ''
+    );
+    toAdd.pokemon = this.caughtPokemon.value;
+
+    StorageUtil.storageSave('trainer', toAdd);
+
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'x-api-key': apiKey,
@@ -54,13 +62,12 @@ export class CathEmAllService {
       `${trainerUrl}/${
         JSON.parse(window.sessionStorage.getItem('trainer') || '').id
       }`,
-      { pokemon: this.caughtPokemon.value },
+      toAdd,
       {
         headers,
       }
     );
   }
-
   public updatePokemon (pokemon: PokemonFull): Observable<User>{
     this.caughtPokemon.next([...this.caughtPokemon.value.filter((poke: PokemonFull) => poke.name !== pokemon.name)]);
     console.log(this.caughtPokemon.value)
